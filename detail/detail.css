@@ -1,0 +1,43 @@
+body {
+    background: white;
+    padding: 50px;
+    overflow-x: hidden;
+}
+
+button {
+    border: none;
+    color: black;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+.minus {
+    background-color: white;
+}
+
+.plus {
+    background-color: white;
+}
+
+.container {
+    font-family: 'Open Sans', sans-serif;
+    margin:  10px;
+    padding: 10px;
+    width: 1000px;
+}
+
+a {
+    color: #000;
+    text-decoration: none;
+
+    -webkit-transition: color .2s linear;
+    -moz-transition: color .2s linear;
+    -ms-transition: color .2s linear;
+    -o-transition: color .2s linear;
+    transition: color .2s linear;
+}
