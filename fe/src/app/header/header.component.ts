@@ -6,6 +6,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
+  username?: string;
+  img?: string;
+  name?: string;
+  role?: string;
+  isLoggedIn = false;
+  itemCount = 0;
 
   constructor() { }
 

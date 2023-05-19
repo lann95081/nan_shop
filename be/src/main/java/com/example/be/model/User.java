@@ -20,7 +20,6 @@ public class User {
     private String email;
     private String address;
     private boolean gender;
-    private boolean deleteStatus;
 
     @OneToMany(mappedBy = "user")
     @JsonBackReference
@@ -97,13 +96,6 @@ public class User {
         this.gender = gender;
     }
 
-    public boolean isDeleteStatus() {
-        return deleteStatus;
-    }
-
-    public void setDeleteStatus(boolean deleteStatus) {
-        this.deleteStatus = deleteStatus;
-    }
 
     public Set<UserRole> getUserRoleSet() {
         return userRoleSet;

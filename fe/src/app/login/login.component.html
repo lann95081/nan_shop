@@ -1,20 +1,20 @@
-<section>
-  <img src="assets/images/login.jpg" class="bg">
+<section class="mt-5">
+  <img src="assets/images/login.png" class="bg">
   <div class="login">
     <h2 style="text-align: center;">Đăng nhập</h2>
-
+    <form [formGroup]="formLogin" (ngSubmit)="onSubmit()">
     <div class="inputBox">
-      <input type="text" placeholder="Tên đăng nhập...">
+      <input type="text" placeholder="Tên đăng nhập..." formControlName="username">
     </div>
 
     <div class="inputBox">
-      <input type="password" placeholder="Mật khẩu">
+      <input type="password" placeholder="Mật khẩu" formControlName="password">
     </div>
 
     <div class="inputBox">
       <input type="submit" value="Đăng nhập" id="btn">
     </div>
-
+    </form>
     <div class="group">
       <a href="#">Quên mật khẩu</a>
       <a href="#">Đăng kí</a>

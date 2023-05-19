@@ -1,5 +1,5 @@
 <div class="container-fluid">
-  <nav class="navbar navbar-expand-lg navbar-light sticky-top px-4 px-lg-5 " style="background: navy">
+  <nav class="navbar navbar-expand-lg navbar-light sticky-top px-4 px-lg-5 " style="background: steelblue">
     <a routerLink="/" class="navbar-brand d-flex align-items-center">
       <img src="//cdn.shopify.com/s/files/1/0624/1746/9697/files/Logo_transparent_white_140x.png?v=1669526563"
            loading="lazy" alt="Paddy Pet Shop"
@@ -27,21 +27,23 @@
           <i class="fa fa-cat" style="color: whitesmoke"></i>
         </a>
 
-        <a class="nav-item nav-link"style="color: whitesmoke">
-          <i class="fas fa-shopping-cart mx-4" style="color: whitesmoke" routerLink="/nan"></i>
+        <a routerLink="/nan" class="nav-item nav-link"style="color: whitesmoke">
+          <i class="fas fa-shopping-cart mx-4" style="color: whitesmoke"></i>
         </a>
 
         <div class="nav-item dropdown">
           <div class="ps-4 d-none d-lg-block">
             <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarNav">
               <ul class="navbar-nav flex-grow-1 d-flex justify-content-end">
-                <li class="nav-item d-flex align-items-center mg-left">
-                  <b style="color: whitesmoke" class="text-center mt-3"></b>
+                <li class="nav-item d-flex align-items-center mg-left" [hidden]="!isLoggedIn" >
+                  <b style="color: whitesmoke" class="text-center mt-3" [hidden]="!isLoggedIn">{{name}}</b>
                 <li>
-                  <button style="color: white"></button>
+                  <button  (click)="logOut()" style="color: white" [hidden]="!isLoggedIn">
+                    <i class="fa fa-sign-out-alt mx-4 mt-4" style="color: whitesmoke"></i>
+                  </button>
                 </li>
-                <div style="margin-right: 45px" class="mt-2">
-                  <a><i class="fa fa-user mx-4" style="color: whitesmoke" routerLink="login"></i></a>
+                <div [hidden]="isLoggedIn" style="margin-right: 45px" class="mt-2">
+                  <a routerLink="/login"><i class="fa fa-user mx-4" style="color: whitesmoke"></i></a>
                   <br>
                   <b style="color: whitesmoke">Đăng nhập</b>
                 </div>

@@ -17,7 +17,6 @@ public class Product {
     private String description;
     private String img;
     private Integer amount;
-    private boolean deleteStatus;
 
     @ManyToOne
     @JoinColumn(name = "product_type_id", referencedColumnName = "product_type_id")
@@ -82,14 +81,7 @@ public class Product {
     public void setAmount(Integer amount) {
         this.amount = amount;
     }
-
-    public boolean isDeleteStatus() {
-        return deleteStatus;
-    }
-
-    public void setDeleteStatus(boolean deleteStatus) {
-        this.deleteStatus = deleteStatus;
-    }
+    
 
     public ProductType getProductType() {
         return productType;
