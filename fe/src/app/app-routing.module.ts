@@ -4,6 +4,7 @@ import {MainComponent} from './main/main.component';
 import {LoginComponent} from './login/login.component';
 import {CartComponent} from './cart/cart.component';
 import {ProductDetailComponent} from './product-detail/product-detail.component';
+import {AuthGuard} from './security/auth.guard';
 
 
 const routes: Routes = [
@@ -12,6 +13,7 @@ const routes: Routes = [
     component: MainComponent
   },
   {
+    canActivate: [AuthGuard],
     path: 'login',
     component: LoginComponent
   },

@@ -4,6 +4,7 @@ import {TokenStorageService} from '../service/token-storage.service';
 import {LoginService} from '../service/login.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import Swal from 'sweetalert2';
+import {UserService} from '../service/user.service';
 
 @Component({
   selector: 'app-login',
@@ -20,7 +21,8 @@ export class LoginComponent implements OnInit {
   constructor(private tokenStorageService: TokenStorageService,
               private authService: LoginService,
               private router: Router,
-              private route: ActivatedRoute) { }
+              private route: ActivatedRoute,
+              private userService: UserService) { }
 
   ngOnInit(): void {
     this.formLogin = new FormGroup({
@@ -53,6 +55,12 @@ export class LoginComponent implements OnInit {
         this.authService.isLoggedIn = true;
         this.username = this.tokenStorageService.getUser().username;
         this.roles = this.tokenStorageService.getUser().roles;
+        Swal.fire({
+          title: 'Thông báo!',
+          text: 'Đăng nhập thành công',
+          icon: 'success',
+          confirmButtonText: 'OK'
+        });
         this.formLogin.reset();
         this.router.navigateByUrl(this.returnUrl);
       },
