@@ -14,7 +14,12 @@ public class ProductService implements IProductService {
     private IProductRepository iProductRepository;
 
     @Override
-    public List<Product> findAll() {
-        return iProductRepository.findAll();
+    public List<Product> findAllByName(String nameSearch) {
+        return iProductRepository.findAllByProductName(nameSearch);
+    }
+
+    @Override
+    public List<Product> findAllByNameAndBrand(String nameSearch, Integer brandId) {
+        return iProductRepository.findAllByProductNameAndBrandId(nameSearch, brandId);
     }
 }

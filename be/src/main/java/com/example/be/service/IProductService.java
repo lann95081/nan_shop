@@ -5,5 +5,7 @@ import com.example.be.model.Product;
 import java.util.List;
 
 public interface IProductService {
-    List<Product> findAll();
+    List<Product> findAllByName(String nameSearch);
+
+    List<Product> findAllByNameAndBrand(String nameSearch, Integer brandId);
 }

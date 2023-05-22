@@ -11,8 +11,9 @@ import {Product} from '../model/product';
 })
 export class MainComponent implements OnInit {
   brands: Brand[];
-  productType: ProductType[];
   products: Product[];
+  nameSearch: '';
+  brandId = 0;
 
   constructor(private productService: ProductService) {
   }
@@ -29,9 +30,22 @@ export class MainComponent implements OnInit {
   }
 
   findAllProduct() {
-    this.productService.getAllProduct().subscribe(data => {
-      this.products = data;
-    });
+    if (this.nameSearch === undefined) {
+      this.nameSearch = '';
+    }
+    if (this.brandId === undefined) {
+      this.brandId = 0;
+      this.productService.getAllByName(this.nameSearch).subscribe(data => {
+        this.products = data;
+      });
+    } else {
+      this.productService.getAllByNameAndBrand(this.nameSearch, this.brandId).subscribe(data => {
+        this.products = data;
+      });
+    }
   }
 
+  search() {
+    this.ngOnInit();
+  }
 }

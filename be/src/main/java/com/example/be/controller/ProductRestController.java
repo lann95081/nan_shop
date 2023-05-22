@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -27,8 +28,8 @@ public class ProductRestController {
     @Autowired
     private IProductService iProductService;
 
-    @GetMapping("/list/brand")
-    public ResponseEntity<?> showListBrand() {
+    @GetMapping("/api/brand")
+    public ResponseEntity<List<Brand>> showListBrand() {
         List<Brand> brandList = iBrandService.findAll();
         if (brandList.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -37,8 +38,8 @@ public class ProductRestController {
         }
     }
 
-    @GetMapping("/list/type")
-    public ResponseEntity<?> showListType() {
+    @GetMapping("/api/type")
+    public ResponseEntity<List<ProductType>> showListType() {
         List<ProductType> productTypeList = iProductTypeService.findAll();
         if (productTypeList.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -47,13 +48,16 @@ public class ProductRestController {
         }
     }
 
-    @GetMapping("/list")
-    public ResponseEntity<?> showListProduct() {
-        List<Product> productList = iProductService.findAll();
-        if (productList.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    @GetMapping("/api/product")
+    public ResponseEntity<List<Product>> showListAndSearch(@RequestParam(defaultValue = "", required = false) String nameSearch,
+                                                           @RequestParam(defaultValue = "0", required = false) Integer brandId) {
+        List<Product> productList;
+        if (brandId == 0) {
+            productList = iProductService.findAllByName(nameSearch);
         } else {
-            return new ResponseEntity<>(productList, HttpStatus.OK);
+            productList = iProductService.findAllByNameAndBrand(nameSearch, brandId);
         }
+
+        return new ResponseEntity<>(productList, HttpStatus.OK);
     }
 }

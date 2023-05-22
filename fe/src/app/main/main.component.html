@@ -69,8 +69,30 @@
     </div>
   </div>
 
+  <div class="row mb-4 mx-4">
+    <div class="col-lg-2"></div>
+    <div class="col-lg-4">
+      <input class="form-control mx-4" type="search" [(ngModel)]="nameSearch" placeholder="Nhập tên sản phẩm..."
+             aria-label="Search">
+    </div>
+    <div class="col-lg-3">
+      <div class="row">
+        <select class="form-control mx-4" aria-label="Search" [(ngModel)]="brandId" name="brandId">
+          <option [value]="0">Chọn thương hiệu</option>
+          <option *ngFor="let brand of brands" [value]="brand.brandId">{{brand.brandName}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="col-lg-3">
+      <!--        <button class="btn btn-light btn-outline-primary mx-4" type="button" (click)="search()">-->
+      <!--          <i class="fa-solid fa-magnifying-glass"></i>-->
+      <!--        </button>-->
+      <button type="button" class="btn btn-outline-dark mx-4" (click)="search()"><i class="fas fa-search"></i></button>
+    </div>
+  </div>
+
   <div class="row isotope-grid mx-4">
-    <b style="text-align: center; color: black; font-size: 25px">SẢN PHẨM BÁN CHẠY</b>
+    <b style="text-align: center; color: black; font-size: 25px">DANH SÁCH SẢN PHẨM</b>
 
     <div class="row">
       <div class=" col-sm-6 col-md-4 col-lg-3 wow fadeInDown isotope-item women" *ngFor="let product of products"
