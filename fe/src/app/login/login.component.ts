@@ -5,6 +5,7 @@ import {LoginService} from '../service/login.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import Swal from 'sweetalert2';
 import {UserService} from '../service/user.service';
+import {ShareService} from '../service/share.service';
 
 @Component({
   selector: 'app-login',
@@ -22,7 +23,8 @@ export class LoginComponent implements OnInit {
               private authService: LoginService,
               private router: Router,
               private route: ActivatedRoute,
-              private userService: UserService) { }
+              private userService: UserService,
+              private shareService: ShareService) { }
 
   ngOnInit(): void {
     this.formLogin = new FormGroup({
@@ -63,6 +65,7 @@ export class LoginComponent implements OnInit {
         });
         this.formLogin.reset();
         this.router.navigateByUrl(this.returnUrl);
+        this.shareService.sendClickEvent();
       },
       err => {
         this.authService.isLoggedIn = false;

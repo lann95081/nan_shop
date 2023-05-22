@@ -21,34 +21,16 @@ export class HeaderComponent implements OnInit {
               private shareService: ShareService,
               private userService: UserService,
               private router: Router) {
-    // this.loadHeader();
-    if (this.tokenStorageService.getToken()) {
-      this.role = this.tokenStorageService.getUser().roles[0];
-      this.username = this.tokenStorageService.getUser().username;
-      console.log(this.username);
-      // this.isLoggedIn = this.username != null;
-      this.isLoggedIn = true;
-      this.findNameUser();
-    } else {
-      this.isLoggedIn = false;
-    }
+    this.shareService.getClickEvent().subscribe(() => {
+      this.loadHeader();
+    });
     this.shareService.getCount().subscribe(count => {
       this.itemCount = count;
     });
   }
 
   ngOnInit(): void {
-    if (this.tokenStorageService.getToken()) {
-      console.log(this.isLoggedIn);
-      this.role = this.tokenStorageService.getUser().roles[0];
-      this.username = this.tokenStorageService.getUser().username;
-      console.log(this.username);
-      // this.isLoggedIn = this.username != null;
-      this.isLoggedIn = true;
-      this.findNameUser();
-    } else {
-      this.isLoggedIn = false;
-    }
+    this.loadHeader();
   }
 
   loader() {
@@ -91,7 +73,5 @@ export class HeaderComponent implements OnInit {
     });
     this.shareService.setCount(0);
     this.router.navigateByUrl('');
-    console.log(this.isLoggedIn);
   }
-
 }
