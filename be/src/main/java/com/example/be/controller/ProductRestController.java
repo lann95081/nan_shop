@@ -1,20 +1,17 @@
 package com.example.be.controller;
 
-import com.example.be.model.Brand;
-import com.example.be.model.Product;
-import com.example.be.model.ProductType;
-import com.example.be.service.IBrandService;
-import com.example.be.service.IProductService;
-import com.example.be.service.IProductTypeService;
+import com.example.be.dto.ICartDetailDto;
+import com.example.be.model.*;
+import com.example.be.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 @CrossOrigin("*")
@@ -27,6 +24,15 @@ public class ProductRestController {
 
     @Autowired
     private IProductService iProductService;
+
+    @Autowired
+    private ICartDetailService iCartDetailService;
+
+    @Autowired
+    private IUserService iUserService;
+
+    @Autowired
+    private ICartService iCartService;
 
     @GetMapping("/api/brand")
     public ResponseEntity<List<Brand>> showListBrand() {
@@ -59,5 +65,78 @@ public class ProductRestController {
         }
 
         return new ResponseEntity<>(productList, HttpStatus.OK);
+    }
+
+    @GetMapping("/api/product/{productId}")
+    public ResponseEntity<Product> findByProductId(@PathVariable Integer productId) {
+        Product product = iProductService.findById(productId);
+        if (product == null) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } else {
+            return new ResponseEntity<>(product, HttpStatus.OK);
+        }
+    }
+
+    @GetMapping("/api/cart/addToCart/{userId}/{productId}/{amount}")
+    public ResponseEntity<?> addToCart(@PathVariable Integer userId,
+                                       @PathVariable Integer productId,
+                                       @PathVariable Integer amount) {
+
+        List<ICartDetailDto> cartDetailDtoList = iCartDetailService.findAllCartDetail(userId);
+        for (ICartDetailDto cartDetailDto : cartDetailDtoList) {
+            if (Objects.equals(cartDetailDto.getProductId(), productId)) {
+                CartDetail cartDetail = iCartDetailService.findByCartDetailId(cartDetailDto.getCartDetailId());
+                Integer amount1 = cartDetail.getAmount() + amount;
+                cartDetail.setAmount(amount1);
+                iCartDetailService.save(cartDetail);
+                return new ResponseEntity<>(cartDetail, HttpStatus.OK);
+            }
+        }
+
+        User user = iUserService.findById(userId);
+        Date date = new Date();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        String dateNow = dateFormat.format(date);
+        Cart cart = new Cart();
+        cart.setDate(dateNow);
+        cart.setUser(user);
+        iCartService.save(cart);
+        CartDetail cartDetail = new CartDetail();
+        cartDetail.setCart(cart);
+        Product product = iProductService.findById(productId);
+        cartDetail.setProduct(product);
+        cartDetail.setAmount(1);
+        CartDetail cartDetail1 = iCartDetailService.save(cartDetail);
+
+        return new ResponseEntity<>(cartDetail1, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/api/cart/{userId}")
+    public ResponseEntity<List<ICartDetailDto>> findAllCartDetail(@PathVariable Integer userId) {
+        List<ICartDetailDto> cartDetailDtoList = iCartDetailService.findAllCartDetail(userId);
+
+        if (cartDetailDtoList.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } else {
+            return new ResponseEntity<>(cartDetailDtoList, HttpStatus.OK);
+        }
+    }
+
+    @GetMapping("/api/cart/updateAmount/{amount}/{cartDetailId}")
+    public ResponseEntity<?> updateAmount(@PathVariable Integer amount, Integer cartDetailId) {
+        iCartDetailService.updateAmount(amount, cartDetailId);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @DeleteMapping("/api/cart/deleteProduct/{userId}")
+    public ResponseEntity<?> deleteProduct(@PathVariable Integer userId) {
+        iCartDetailService.deleteProduct(userId);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @DeleteMapping("/api/cart/deleteCartDetail/{cartId}/{productId}")
+    public ResponseEntity<?> deleteCartDetail(@PathVariable Integer cartId, Integer productId) {
+        iCartDetailService.deleteCartDetail(cartId, productId);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

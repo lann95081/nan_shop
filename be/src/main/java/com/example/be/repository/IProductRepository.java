@@ -14,4 +14,6 @@ public interface IProductRepository extends JpaRepository<Product, Integer> {
     @Query(value = "select * from product where product_name like concat('%',:nameSearch,'%') and brand_id = :brandId order by product.product_id desc", nativeQuery = true)
     List<Product> findAllByProductNameAndBrandId(@Param("nameSearch") String nameSearch,
                                                  @Param("brandId") Integer brandId);
+
+
 }

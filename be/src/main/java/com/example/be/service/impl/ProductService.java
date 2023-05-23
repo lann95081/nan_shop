@@ -22,4 +22,11 @@ public class ProductService implements IProductService {
     public List<Product> findAllByNameAndBrand(String nameSearch, Integer brandId) {
         return iProductRepository.findAllByProductNameAndBrandId(nameSearch, brandId);
     }
+
+    @Override
+    public Product findById(Integer productId) {
+        return iProductRepository.findById(productId).get();
+    }
+
+
 }

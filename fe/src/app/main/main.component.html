@@ -84,9 +84,6 @@
       </div>
     </div>
     <div class="col-lg-3">
-      <!--        <button class="btn btn-light btn-outline-primary mx-4" type="button" (click)="search()">-->
-      <!--          <i class="fa-solid fa-magnifying-glass"></i>-->
-      <!--        </button>-->
       <button type="button" class="btn btn-outline-dark mx-4" (click)="search()"><i class="fas fa-search"></i></button>
     </div>
   </div>
@@ -96,17 +93,17 @@
 
     <div class="row">
       <div class=" col-sm-6 col-md-4 col-lg-3 wow fadeInDown isotope-item women" *ngFor="let product of products"
-           data-wow-delay="0.5s">
+           data-wow-delay="0.3s">
 
         <!-- Block2 -->
         <div class="block2">
 
           <div class="block2-pic hov-img0">
-            <a routerLink="/detail">
+            <a routerLink="/product/{{product.productId}}">
               <img src="{{product?.img}}" alt=""></a>
             <button
               class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
-              <i routerLink="/nan" class="fas fa-shopping-cart"></i>
+              <i class="fas fa-shopping-cart" (click)="addToCart(product.productId)"></i>
             </button>
           </div>
           <div class="block2-txt flex-w flex-t p-t-14">

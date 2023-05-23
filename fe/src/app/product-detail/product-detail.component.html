@@ -9,7 +9,7 @@
         <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
           <div class="carousel-inner">
             <div class="carousel-item active">
-              <img src="https://www.petmart.vn/wp-content/uploads/2019/06/quan-ao-cho-cho-meo-ambaby-pet-2jxf101-768x768.jpg"
+              <img src="{{productDetail?.img}}"
                    class="d-block w-100" style="height: 450px">
             </div>
           </div>
@@ -19,28 +19,28 @@
 
     <div class="col-lg-7">
       <div class="row mx-5">
-        <h3><b>Quần áo cho chó mèo AMBABY PET 2JXF101</b></h3>
+        <h3><b>{{productDetail?.productName}}</b></h3>
       </div>
 
       <div class="row mx-5 my-1">
-        <b>Thương hiệu:AMBABY PET</b>
+        <b>Thương hiệu:{{productDetail?.brand.brandName}}</b>
       </div>
 
       <div class="row mx-5 my-1">
-      <span><b>Giá: 200.000đ</b></span>
+      <span><b>Giá: {{productDetail?.price}}.000đ</b></span>
       </div>
 
       <div class="row mx-5 my-1">
         <span><b>Số lượng</b></span>
         <span>
-               <button class="minus btn-outline-light" style="color: black">-</button>
-                <b class="mx-2">1</b>
-               <button class="plus btn-outline-light" style="color: black">+</button>
+               <button class="minus btn-outline-light" style="color: black" (click)="minus()">-</button>
+                <b class="mx-2">{{num}}</b>
+               <button class="plus btn-outline-light" style="color: black" (click)="plus()">+</button>
         </span>
       </div>
 
       <div class="row mx-5 my-4">
-        <b>Tổng số tiền: 200.000đ</b>
+        <b>{{total}}.000đ</b>
       </div>
 
       <div class="row mx-5">
@@ -68,7 +68,7 @@
     </ul>
     <div class="tab-content" id="myTabContent">
       <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab" style="text-align: left">
-        <b>Quần áo cho chó mèo AMBABY PET 2JXF101 là sản phẩm dành cho cả chó và mèo.</b>
+        <b>{{productDetail?.description}}</b>
       </div>
       <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
         ...

@@ -22,7 +22,7 @@ const routes: Routes = [
     component: CartComponent
   },
   {
-    path: 'detail',
+    path: 'product/:productId',
     component: ProductDetailComponent
   }
 ];

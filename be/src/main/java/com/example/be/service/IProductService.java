@@ -8,4 +8,6 @@ public interface IProductService {
     List<Product> findAllByName(String nameSearch);
 
     List<Product> findAllByNameAndBrand(String nameSearch, Integer brandId);
+
+    Product findById(Integer productId);
 }
