@@ -18,19 +18,20 @@ public interface ICartDetailRepository extends JpaRepository<CartDetail, Integer
             "    from product as p \n" +
             "    join cart_detail as cd on cd.product_id = p.product_id \n" +
             "    join cart as c on cd.cart_id = c.cart_id \n" +
-            "    where c.user_id = :userId and cd.delete_status = false",nativeQuery = true)
+            "    where c.user_id = :userId and cd.delete_status = false order by cd.cart_detail_id desc ", nativeQuery = true)
     List<ICartDetailDto> findAllCartDetail(@Param("userId") Integer userId);
 
     @Modifying
-    @Query(value = "update cart_detail set amount = :amount where cart_detail_id = :cartDetailId",nativeQuery = true)
+    @Query(value = "update cart_detail set amount = :amount where cart_detail_id = :cartDetailId", nativeQuery = true)
     void updateAmount(@Param("amount") Integer amount,
                       @Param("cartDetailId") Integer cartDetailId);
 
     @Query(value = "update cart_detail cd \n" +
             "            join cart as c on cd.cart_id = c.cart_id \n" +
             "            set cd.delete_status = true \n" +
-            "            where c.user_id = :userId",nativeQuery = true)
+            "            where c.user_id = :userId", nativeQuery = true)
     void deleteProduct(@Param("userId") Integer userId);
-@Modifying
+
+    @Modifying
     void deleteCartDetailByCartCartIdAndProductProductId(Integer cartId, Integer productId);
 }
