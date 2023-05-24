@@ -28,7 +28,9 @@
         </a>
 
         <a routerLink="/nan" class="nav-item nav-link"style="color: whitesmoke">
-          <i class="fas fa-shopping-cart mx-4" style="color: whitesmoke"></i>
+          <i class="fas fa-shopping-cart mx-4" style="color: whitesmoke">
+            <sup *ngIf="count > 0">{{count}}</sup>
+          </i>
         </a>
 
         <div class="nav-item dropdown">

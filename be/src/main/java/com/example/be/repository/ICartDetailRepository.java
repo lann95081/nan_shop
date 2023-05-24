@@ -31,6 +31,6 @@ public interface ICartDetailRepository extends JpaRepository<CartDetail, Integer
             "            set cd.delete_status = true \n" +
             "            where c.user_id = :userId",nativeQuery = true)
     void deleteProduct(@Param("userId") Integer userId);
-
-    void deleteCartDetailByCart_CartIdAndProduct_ProductId(Integer cartId, Integer productId);
+@Modifying
+    void deleteCartDetailByCartCartIdAndProductProductId(Integer cartId, Integer productId);
 }

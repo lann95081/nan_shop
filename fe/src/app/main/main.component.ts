@@ -8,6 +8,7 @@ import {ShareService} from '../service/share.service';
 import {TokenStorageService} from '../service/token-storage.service';
 import {Router} from '@angular/router';
 import {UserService} from '../service/user.service';
+import {ViewportScroller} from '@angular/common';
 
 @Component({
   selector: 'app-main',
@@ -26,7 +27,8 @@ export class MainComponent implements OnInit {
               private shareService: ShareService,
               private tokenStorageService: TokenStorageService,
               private router: Router,
-              private userService: UserService) {
+              private userService: UserService,
+              private viewportScroller: ViewportScroller) {
   }
 
   ngOnInit(): void {

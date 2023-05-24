@@ -123,7 +123,7 @@ public class ProductRestController {
     }
 
     @GetMapping("/api/cart/updateAmount/{amount}/{cartDetailId}")
-    public ResponseEntity<?> updateAmount(@PathVariable Integer amount, Integer cartDetailId) {
+    public ResponseEntity<?> updateAmount(@PathVariable Integer amount, @PathVariable Integer cartDetailId) {
         iCartDetailService.updateAmount(amount, cartDetailId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -134,8 +134,8 @@ public class ProductRestController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @DeleteMapping("/api/cart/deleteCartDetail/{cartId}/{productId}")
-    public ResponseEntity<?> deleteCartDetail(@PathVariable Integer cartId, Integer productId) {
+    @DeleteMapping("/api/cart/deleteCartDetail1/{cartId}/{productId}")
+    public ResponseEntity<?> deleteCartDetail(@PathVariable Integer cartId, @PathVariable Integer productId) {
         iCartDetailService.deleteCartDetail(cartId, productId);
         return new ResponseEntity<>(HttpStatus.OK);
     }

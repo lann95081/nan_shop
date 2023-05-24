@@ -42,6 +42,6 @@ public class CartDetailService implements ICartDetailService {
 
     @Override
     public void deleteCartDetail(Integer cartId, Integer productId) {
-        iCartDetailRepository.deleteCartDetailByCart_CartIdAndProduct_ProductId(cartId, productId);
+        iCartDetailRepository.deleteCartDetailByCartCartIdAndProductProductId(cartId, productId);
     }
 }

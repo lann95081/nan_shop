@@ -38,8 +38,8 @@ export class ProductService {
     return this.httpClient.get<CartDetailDto[]>('http://localhost:8080/api/cart/' + userId);
   }
 
-  addToCart(userId: number, productId: number, amount: number): Observable<CartDetail[]> {
-    return this.httpClient.get<CartDetail[]>('http://localhost:8080/api/cart/addToCart/' + userId + '/' + productId + '/' + amount);
+  addToCart(userId: number, productId: number, amount: number): Observable<CartDetail> {
+    return this.httpClient.get<CartDetail>('http://localhost:8080/api/cart/addToCart/' + userId + '/' + productId + '/' + amount);
   }
 
   updateAmount(amount: number, cartDetailId: number): Observable<any> {
@@ -47,6 +47,6 @@ export class ProductService {
   }
 
   deleteCartDetail(cartId: number, productId: number): Observable<any> {
-    return this.httpClient.delete('http://localhost:8080/api/cart/deleteCartDetail/' + cartId + '/' + productId);
+    return this.httpClient.delete('http://localhost:8080/api/cart/deleteCartDetail1/' + cartId + '/' + productId);
   }
 }
