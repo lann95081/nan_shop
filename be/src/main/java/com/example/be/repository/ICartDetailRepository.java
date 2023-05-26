@@ -26,12 +26,13 @@ public interface ICartDetailRepository extends JpaRepository<CartDetail, Integer
     void updateAmount(@Param("amount") Integer amount,
                       @Param("cartDetailId") Integer cartDetailId);
 
-    @Query(value = "update cart_detail cd \n" +
-            "            join cart as c on cd.cart_id = c.cart_id \n" +
-            "            set cd.delete_status = true \n" +
-            "            where c.user_id = :userId", nativeQuery = true)
-    void deleteProduct(@Param("userId") Integer userId);
-
     @Modifying
     void deleteCartDetailByCartCartIdAndProductProductId(Integer cartId, Integer productId);
+
+    @Modifying
+    @Query(value = "update cart_detail cd \n" +
+            "            join cart c on c.cart_id = cd.cart_id \n" +
+            "            join user u on c.user_id = u.user_id \n" +
+            "            set cd.delete_status = true,c.pay_status = true where u.user_id = :userId", nativeQuery = true)
+    void setCart(@Param("userId") Integer userId);
 }

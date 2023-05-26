@@ -47,6 +47,14 @@ export class ProductService {
   }
 
   deleteCartDetail(cartId: number, productId: number): Observable<any> {
-    return this.httpClient.delete('http://localhost:8080/api/cart/deleteCartDetail1/' + cartId + '/' + productId);
+    return this.httpClient.delete('http://localhost:8080/api/cart/deleteCartDetail/' + cartId + '/' + productId);
+  }
+
+  setCart(userId: number): Observable<any> {
+    return this.httpClient.get('http://localhost:8080/api/cart/setCart/' + userId);
+  }
+
+  setAmount(amount: number, productId: number): Observable<any> {
+    return this.httpClient.get<any>('http://localhost:8080/api/cart/setCart/setAmount/' + amount + '/' + productId);
   }
 }

@@ -128,15 +128,21 @@ public class ProductRestController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @DeleteMapping("/api/cart/deleteProduct/{userId}")
-    public ResponseEntity<?> deleteProduct(@PathVariable Integer userId) {
-        iCartDetailService.deleteProduct(userId);
+    @GetMapping("/api/cart/setCart/{userId}")
+    public ResponseEntity<?> setCart(@PathVariable Integer userId) {
+        iCartDetailService.setCart(userId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @DeleteMapping("/api/cart/deleteCartDetail1/{cartId}/{productId}")
+    @DeleteMapping("/api/cart/deleteCartDetail/{cartId}/{productId}")
     public ResponseEntity<?> deleteCartDetail(@PathVariable Integer cartId, @PathVariable Integer productId) {
         iCartDetailService.deleteCartDetail(cartId, productId);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping("/api/cart/setAmount/{amount}/{productId}")
+    public ResponseEntity<Product> setAmount(@PathVariable Integer amount, @PathVariable Integer productId) {
+        iProductService.setAmount(amount, productId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

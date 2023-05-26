@@ -31,7 +31,7 @@
           </div>
         </div>
 
-        <div class="row mt-2 wow fadeInDown" *ngFor="let cart of cartDetailDtos" data-wow-delay="0.3s">
+        <div class="row mt-2 wow fadeInDown" *ngFor="let cart of cartDetailDto" data-wow-delay="0.3s">
           <div class="col-lg-2">
             <img src="{{cart?.img}}"
                  style="width: 150px; height: 150px">
@@ -47,7 +47,8 @@
 
           <div class="col-lg-4" style="text-align: center">
            <span>
-               <button class="minus btn-outline-light" style="color: black" (click)="minus(cart?.cartDetailId)">-</button>
+               <button class="minus btn-outline-light" style="color: black"
+                       (click)="minus(cart?.cartDetailId)">-</button>
                 <b class="mx-1">{{cart?.amount}}</b>
                <button class="plus btn-outline-light" style="color: black" (click)="plus(cart?.cartDetailId)">+</button>
             </span>
@@ -58,7 +59,9 @@
           </div>
 
           <div class="col-lg-1">
-            <button><i class="fas fa-times" (click)="deleteCartDetail(cart.cartId, cart.productId, cart.productName, cart.cartDetailId)"></i></button>
+            <button><i class="fas fa-times"
+                       (click)="deleteCartDetail(cart.cartId, cart.productId, cart.productName, cart.cartDetailId)"></i>
+            </button>
           </div>
         </div>
 
@@ -101,7 +104,7 @@
             <b>{{total}}.000đ</b>
           </div>
           <div class="row mt-4">
-            <button class="btn btn-outline-dark">Đi tới thanh toán</button>
+            <div id="myPaypalButtons"></div>
           </div>
         </div>
 

@@ -2,6 +2,7 @@ package com.example.be.service;
 
 import com.example.be.dto.ICartDetailDto;
 import com.example.be.model.CartDetail;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
@@ -14,7 +15,7 @@ public interface ICartDetailService {
 
     void updateAmount(Integer amount, Integer cartDetailId);
 
-    void deleteProduct(Integer userId);
+    void setCart(Integer userId);
 
     void deleteCartDetail(Integer cartId, Integer productId);
 }

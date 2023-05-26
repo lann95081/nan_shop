@@ -2,6 +2,7 @@ package com.example.be.repository;
 
 import com.example.be.model.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -15,5 +16,8 @@ public interface IProductRepository extends JpaRepository<Product, Integer> {
     List<Product> findAllByProductNameAndBrandId(@Param("nameSearch") String nameSearch,
                                                  @Param("brandId") Integer brandId);
 
-
+    @Modifying
+    @Query(value = "update product set amount = :amount where product_id = :productId",nativeQuery = true)
+    void setAmount(@Param("amount") Integer amount,
+                   @Param("productId") Integer productId);
 }

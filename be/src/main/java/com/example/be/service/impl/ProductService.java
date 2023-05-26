@@ -28,5 +28,8 @@ public class ProductService implements IProductService {
         return iProductRepository.findById(productId).get();
     }
 
-
+    @Override
+    public void setAmount(Integer amount, Integer productId) {
+        iProductRepository.setAmount(amount, productId);
+    }
 }

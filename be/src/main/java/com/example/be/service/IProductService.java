@@ -10,4 +10,6 @@ public interface IProductService {
     List<Product> findAllByNameAndBrand(String nameSearch, Integer brandId);
 
     Product findById(Integer productId);
+
+    void setAmount(Integer amount, Integer productId);
 }
