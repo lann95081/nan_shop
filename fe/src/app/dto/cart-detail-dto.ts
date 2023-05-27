@@ -6,4 +6,5 @@ export interface CartDetailDto {
   img: string;
   amount: number;
   productId: number;
+  amountt: number;
 }

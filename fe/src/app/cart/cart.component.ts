@@ -76,12 +76,24 @@ export class CartComponent implements OnInit {
     for (let i = 0; i < this.cartDetailDto.length; i++) {
       if (this.cartDetailDto[i].cartDetailId === cartDetailId) {
         this.cartDetailDto[i].amount++;
-        this.productService.updateAmount(this.cartDetailDto[i].amount, cartDetailId).subscribe(() => {
-        }, error => {
-        });
-        this.sum += this.cartDetailDto[i].price;
-        this.total = this.sum + this.ship;
-        break;
+        if (this.cartDetailDto[i].amount > this.cartDetailDto[i].amountt) {
+          Swal.fire({
+            title: 'Thông báo!',
+            text: 'Quá số lượng còn trong kho.',
+            icon: 'error',
+            confirmButtonColor: 'darkgreen',
+            confirmButtonText: 'OK'
+          });
+          this.cartDetailDto[i].amount--;
+          break;
+        } else {
+          this.productService.updateAmount(this.cartDetailDto[i].amount, cartDetailId).subscribe(() => {
+          }, error => {
+          });
+          this.sum += this.cartDetailDto[i].price;
+          this.total = this.sum + this.ship;
+          break;
+        }
       }
     }
   }
