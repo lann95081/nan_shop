@@ -95,8 +95,18 @@ export class ProductDetailComponent implements OnInit {
           icon: 'error',
           confirmButtonText: 'OK'
         });
+        this.router.navigateByUrl('/login');
       }
-      this.router.navigateByUrl('/login');
+      if (error.status === 404) {
+        Swal.fire({
+          title: 'Thông báo!',
+          text: 'Bạn không thể thêm sản phẩm vào giỏ hàng vì số lượng sản phẩm không còn trong kho.',
+          icon: 'error',
+          confirmButtonColor: 'darkgreen',
+          confirmButtonText: 'OK'
+        });
+      }
     });
+    this.router.navigateByUrl('/nan');
   }
 }

@@ -22,7 +22,6 @@ export class CartComponent implements OnInit {
   total = 0;
   ship = 30;
   user: User;
-  flag = true;
 
   constructor(private productService: ProductService,
               private tokenStorageService: TokenStorageService,
@@ -79,7 +78,7 @@ export class CartComponent implements OnInit {
         if (this.cartDetailDto[i].amount > this.cartDetailDto[i].amountt) {
           Swal.fire({
             title: 'Thông báo!',
-            text: 'Quá số lượng còn trong kho.',
+            text: 'Bạn không thể thêm sản phẩm vào giỏ hàng vì số lượng sản phẩm không còn trong kho.',
             icon: 'error',
             confirmButtonColor: 'darkgreen',
             confirmButtonText: 'OK'
@@ -97,7 +96,6 @@ export class CartComponent implements OnInit {
       }
     }
   }
-
 
   render() {
     render({

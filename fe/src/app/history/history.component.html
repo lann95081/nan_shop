@@ -1,0 +1,37 @@
+<div class="row container-fluid   mt-3 text-center">
+  <h3><b style="color: #00074a;font-size: 30px">LỊCH SỬ GIỎ HÀNG</b></h3>
+</div>
+
+<div class="row container-fluid">
+  <div class="row">
+    <div class="col-lg-6">
+      <a class="btn btn-outline-dark" routerLink="">Tiếp tục mua sắm</a>
+    </div>
+    <div class="col-lg-6">
+
+    </div>
+  </div>
+  <div class="row mt-5">
+    <table class="table table-striped table-bordered text-center justify-content-center" style="width:100%" >
+      <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Mã đơn hàng</th>
+        <th scope="col">Khách hàng</th>
+        <th scope="col">Ngày thanh toán</th>
+        <th scope="col">Tổng tiền</th>
+      </tr>
+      </thead>
+      <tbody class="table-group-divider">
+      <tr *ngIf="purchaseHistories?.length === 0"><td style="text-align: center" colspan="5"><h5 class="text-danger">Lịch sử mua hàng trống</h5></td></tr>
+      <tr *ngFor="let p of purchaseHistories, let i = index">
+        <td >{{i+1}}</td>
+        <td>{{p.codeBill}}</td>
+        <td>{{p.user.username}}</td>
+        <td>{{p.orderDate}}</td>
+        <td>{{p.total | currency: 'USD'}}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

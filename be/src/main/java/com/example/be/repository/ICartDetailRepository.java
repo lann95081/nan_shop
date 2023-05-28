@@ -19,7 +19,14 @@ public interface ICartDetailRepository extends JpaRepository<CartDetail, Integer
             "    join cart_detail as cd on cd.product_id = p.product_id \n" +
             "    join cart as c on cd.cart_id = c.cart_id \n" +
             "    where c.user_id = :userId and cd.delete_status = false order by cd.cart_detail_id desc ", nativeQuery = true)
-    List<ICartDetailDto> findAllCartDetail(@Param("userId") Integer userId);
+    List<ICartDetailDto> findAll(@Param("userId") Integer userId);
+
+
+    @Query(value = "select cd.cart_detail_id as cartDetailId from cart_detail cd " +
+            "join cart c on cd.cart_id = c.cart_id " +
+            "left join purchase_history ph on ph.purchase_history_id = cd.purchase_history_id " +
+            "where c.user_id = :userId and cd.delete_status = false and cd.purchase_history_id is null", nativeQuery = true)
+    List<Integer> findAllCartDetail(@Param("userId") Integer userId);
 
     @Modifying
     @Query(value = "update cart_detail set amount = :amount where cart_detail_id = :cartDetailId", nativeQuery = true)

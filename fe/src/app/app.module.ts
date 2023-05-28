@@ -12,6 +12,7 @@ import { ProductDetailComponent } from './product-detail/product-detail.componen
 import {HttpClientModule} from '@angular/common/http';
 import {NgwWowModule, NgwWowService} from 'ngx-wow';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { HistoryComponent } from './history/history.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
     MainComponent,
     LoginComponent,
     CartComponent,
-    ProductDetailComponent
+    ProductDetailComponent,
+    HistoryComponent
   ],
   imports: [
     BrowserModule,

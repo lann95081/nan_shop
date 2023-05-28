@@ -1,10 +1,12 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import {NgModule} from '@angular/core';
+import {Routes, RouterModule} from '@angular/router';
 import {MainComponent} from './main/main.component';
 import {LoginComponent} from './login/login.component';
 import {CartComponent} from './cart/cart.component';
 import {ProductDetailComponent} from './product-detail/product-detail.component';
 import {AuthGuard} from './security/auth.guard';
+import {HistoryComponent} from './history/history.component';
+import {UserGuard} from './security/user.guard';
 
 
 const routes: Routes = [
@@ -24,6 +26,11 @@ const routes: Routes = [
   {
     path: 'product/:productId',
     component: ProductDetailComponent
+  },
+  {
+    canActivate: [UserGuard],
+    path: 'history',
+    component: HistoryComponent
   }
 ];
 
@@ -31,4 +38,5 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {
+}

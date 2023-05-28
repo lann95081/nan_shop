@@ -5,6 +5,7 @@ import {Brand} from '../model/brand';
 import {Product} from '../model/product';
 import {CartDetailDto} from '../dto/cart-detail-dto';
 import {CartDetail} from '../model/cart-detail';
+import {PurchaseHistory} from '../model/purchase-history';
 
 @Injectable({
   providedIn: 'root'
@@ -34,6 +35,7 @@ export class ProductService {
     return this.httpClient.get<Product>('http://localhost:8080/api/product/' + productId);
   }
 
+
   getAllCartDetail(userId: number): Observable<CartDetailDto[]> {
     return this.httpClient.get<CartDetailDto[]>('http://localhost:8080/api/cart/' + userId);
   }
@@ -56,5 +58,13 @@ export class ProductService {
 
   setAmount(amount: number, productId: number): Observable<any> {
     return this.httpClient.get<any>('http://localhost:8080/api/cart/setCart/setAmount/' + amount + '/' + productId);
+  }
+
+  findAllHistory(userId: number): Observable<PurchaseHistory[]> {
+    return this.httpClient.get<PurchaseHistory[]>('http://localhost:8080/history/' + userId);
+  }
+
+  saveHistory(userId: number, total: number): Observable<any> {
+    return this.httpClient.get('http://localhost:8080/save/' + userId + '/' + total);
   }
 }

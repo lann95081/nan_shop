@@ -9,6 +9,7 @@ import {TokenStorageService} from '../service/token-storage.service';
 import {Router} from '@angular/router';
 import {UserService} from '../service/user.service';
 import {ViewportScroller} from '@angular/common';
+import {error} from 'protractor';
 
 @Component({
   selector: 'app-main',
@@ -22,13 +23,13 @@ export class MainComponent implements OnInit {
   brandId = 0;
   userId: number;
   username: string;
+  productId: number;
 
   constructor(private productService: ProductService,
               private shareService: ShareService,
               private tokenStorageService: TokenStorageService,
               private router: Router,
-              private userService: UserService,
-              private viewportScroller: ViewportScroller) {
+              private userService: UserService) {
   }
 
   ngOnInit(): void {
@@ -64,27 +65,33 @@ export class MainComponent implements OnInit {
   }
 
   addToCart(productId: number) {
-    this.productService.addToCart(this.userId, productId, 1).subscribe(() => {
+    if (!this.tokenStorageService.getToken()) {
       Swal.fire({
         title: 'Thông báo!',
-        text: 'Thêm sản phẩm vào giỏ hàng thành công',
-        icon: 'success',
+        text: 'Bạn phải đăng nhập trước khi muốn mua hàng',
+        icon: 'error',
         confirmButtonText: 'OK'
       });
-      this.productService.getAllCartDetail(this.userId).subscribe(data => {
-        this.shareService.setCount(data.length);
-      });
-    }, error => {
-      if (!this.tokenStorageService.getToken()) {
+    } else {
+      this.productId = productId;
+      this.productService.addToCart(this.userId, this.productId, 1).subscribe(() => {
         Swal.fire({
           title: 'Thông báo!',
-          text: 'Bạn phải đăng nhập trước khi muốn mua hàng',
-          icon: 'error',
+          text: 'Thêm sản phẩm vào giỏ hàng thành công',
+          icon: 'success',
           confirmButtonText: 'OK'
         });
-      }
-      this.router.navigateByUrl('/login');
-    });
+      }, e => {
+        if (e.status === 404) {
+          Swal.fire({
+            title: 'Thông báo!',
+            text: 'Bạn không thể thêm sản phẩm vào giỏ hàng vì số lượng sản phẩm không còn trong kho.',
+            icon: 'error',
+            confirmButtonText: 'OK'
+          });
+        }
+      });
+    }
   }
 
   getUser() {

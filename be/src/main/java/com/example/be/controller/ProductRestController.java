@@ -12,6 +12,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
+import java.util.Random;
 
 @RestController
 @CrossOrigin("*")
@@ -33,6 +34,9 @@ public class ProductRestController {
 
     @Autowired
     private ICartService iCartService;
+
+    @Autowired
+    private IPurchaseService iPurchaseService;
 
     @GetMapping("/api/brand")
     public ResponseEntity<List<Brand>> showListBrand() {
@@ -82,14 +86,18 @@ public class ProductRestController {
                                        @PathVariable Integer productId,
                                        @PathVariable Integer amount) {
 
-        List<ICartDetailDto> cartDetailDtoList = iCartDetailService.findAllCartDetail(userId);
+        List<ICartDetailDto> cartDetailDtoList = iCartDetailService.findAll(userId);
         for (ICartDetailDto cartDetailDto : cartDetailDtoList) {
             if (Objects.equals(cartDetailDto.getProductId(), productId)) {
                 CartDetail cartDetail = iCartDetailService.findByCartDetailId(cartDetailDto.getCartDetailId());
                 Integer amount1 = cartDetail.getAmount() + amount;
-                cartDetail.setAmount(amount1);
-                iCartDetailService.save(cartDetail);
-                return new ResponseEntity<>(cartDetail, HttpStatus.OK);
+                if (amount1 > cartDetailDto.getAmountt()) {
+                    return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+                } else {
+                    cartDetail.setAmount(amount1);
+                    iCartDetailService.save(cartDetail);
+                    return new ResponseEntity<>(cartDetail, HttpStatus.OK);
+                }
             }
         }
 
@@ -105,15 +113,14 @@ public class ProductRestController {
         cartDetail.setCart(cart);
         Product product = iProductService.findById(productId);
         cartDetail.setProduct(product);
-        cartDetail.setAmount(1);
+        cartDetail.setAmount(amount);
         CartDetail cartDetail1 = iCartDetailService.save(cartDetail);
-
         return new ResponseEntity<>(cartDetail1, HttpStatus.CREATED);
     }
 
     @GetMapping("/api/cart/{userId}")
-    public ResponseEntity<List<ICartDetailDto>> findAllCartDetail(@PathVariable Integer userId) {
-        List<ICartDetailDto> cartDetailDtoList = iCartDetailService.findAllCartDetail(userId);
+    public ResponseEntity<?> findAllCartDetail(@PathVariable Integer userId) {
+        List<ICartDetailDto> cartDetailDtoList = iCartDetailService.findAll(userId);
 
         if (cartDetailDtoList.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -145,4 +152,34 @@ public class ProductRestController {
         iProductService.setAmount(amount, productId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @GetMapping("/history/{userId}")
+    public ResponseEntity<?> getAllPurchase(@PathVariable Integer userId) {
+        List<PurchaseHistory> purchaseHistoryList = iPurchaseService.findAllByUserId(userId);
+        return new ResponseEntity<>(purchaseHistoryList, HttpStatus.OK);
+    }
+
+    @GetMapping("save/{userId}/{total}")
+    public ResponseEntity<?> saveHistory(@PathVariable Integer userId,
+                                         @PathVariable Integer total) {
+        List<Integer> cart = iCartDetailService.findAllCartDetail(userId);
+        User user = iUserService.findById(userId);
+        PurchaseHistory purchaseHistory = new PurchaseHistory();
+        Random random = new Random();
+        Date date = new Date();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        simpleDateFormat.format(date);
+        purchaseHistory.setOrderDate(simpleDateFormat.format(date));
+        purchaseHistory.setCodeBill(String.valueOf(random.nextInt(90000) + 10000));
+        purchaseHistory.setUser(user);
+        purchaseHistory.setTotal(Double.valueOf(total));
+        iPurchaseService.save(purchaseHistory);
+        for (Integer in : cart) {
+            CartDetail cartDetail = iCartDetailService.findByCartDetailId(in);
+            cartDetail.setPurchaseHistory(purchaseHistory);
+            iCartDetailService.save(cartDetail);
+        }
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
 }

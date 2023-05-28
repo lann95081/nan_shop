@@ -2,14 +2,15 @@ package com.example.be.service;
 
 import com.example.be.dto.ICartDetailDto;
 import com.example.be.model.CartDetail;
-import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
 public interface ICartDetailService {
     CartDetail save(CartDetail cartDetail);
 
-    List<ICartDetailDto> findAllCartDetail(Integer userId);
+    List<ICartDetailDto> findAll(Integer userId);
+
+    List<Integer> findAllCartDetail(Integer userId);
 
     CartDetail findByCartDetailId(Integer cartDetailId);
 
