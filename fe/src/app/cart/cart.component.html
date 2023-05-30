@@ -6,7 +6,7 @@
   <div class="row mx-4">
     <div class="col-lg-8">
 
-      <div class="row">
+      <div class="row" *ngIf="cartDetailDto?.length > 0; else elseBlock">
         <div class="row my-3 py-3" style="background: #eeeeee; text-align: center">
           <div class="col-lg-2">
             <b>SẢN PHẨM</b>
@@ -50,7 +50,8 @@
                <button class="minus btn-outline-light" style="color: black"
                        (click)="minus(cart?.cartDetailId)">-</button>
                 <b class="mx-1">{{cart?.amount}}</b>
-               <button class="plus btn-outline-light" style="color: black" (click)="plus(cart?.cartDetailId)">+</button>
+               <button class="plus btn-outline-light" style="color: black"
+                       (click)="plus(cart?.cartDetailId)">+</button>
             </span>
           </div>
 
@@ -66,6 +67,15 @@
         </div>
 
       </div>
+
+      <ng-template #elseBlock>
+        <div class="text-center m-5">
+          <img
+            src="https://firebasestorage.googleapis.com/v0/b/shoe-world-7d7d1.appspot.com/o/empty-cart.webp?alt=media&token=3c67f03d-3cf5-4772-8ec2-6e1858ca88e5"
+            height="210" width="300"/>
+        </div>
+      </ng-template>
+
     </div>
 
     <div class="col-lg-4 px-4 mt-4">

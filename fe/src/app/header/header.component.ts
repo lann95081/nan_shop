@@ -15,7 +15,7 @@ export class HeaderComponent implements OnInit {
   username?: string;
   name?: string;
   role?: string;
-  isLoggedIn: boolean;
+  isLoggedIn = false;
   count = 0;
 
   constructor(private tokenStorageService: TokenStorageService,
@@ -33,6 +33,13 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadHeader();
+  }
+
+  loader() {
+    this.shareService.getClickEvent();
+    this.shareService.getCount().subscribe(data => {
+      this.count = data;
+    });
   }
 
   loadHeader(): void {

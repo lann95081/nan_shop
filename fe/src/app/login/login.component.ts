@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup} from '@angular/forms';
 import {TokenStorageService} from '../service/token-storage.service';
 import {LoginService} from '../service/login.service';
@@ -24,7 +24,8 @@ export class LoginComponent implements OnInit {
               private router: Router,
               private route: ActivatedRoute,
               private userService: UserService,
-              private shareService: ShareService) { }
+              private shareService: ShareService) {
+  }
 
   ngOnInit(): void {
     this.formLogin = new FormGroup({
