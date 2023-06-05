@@ -153,13 +153,13 @@ public class ProductRestController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @GetMapping("/history/{userId}")
-    public ResponseEntity<?> getAllPurchase(@PathVariable Integer userId) {
+    @GetMapping("/api/cart/history/{userId}")
+    public ResponseEntity<List<PurchaseHistory>> getAllPurchase(@PathVariable Integer userId) {
         List<PurchaseHistory> purchaseHistoryList = iPurchaseService.findAllByUserId(userId);
         return new ResponseEntity<>(purchaseHistoryList, HttpStatus.OK);
     }
 
-    @GetMapping("save/{userId}/{total}")
+    @GetMapping("/api/cart/save/{userId}/{total}")
     public ResponseEntity<?> saveHistory(@PathVariable Integer userId,
                                          @PathVariable Integer total) {
         List<Integer> cart = iCartDetailService.findAllCartDetail(userId);

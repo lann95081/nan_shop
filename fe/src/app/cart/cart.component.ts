@@ -8,6 +8,7 @@ import Swal from 'sweetalert2';
 import {render} from 'creditcardpayments/creditCardPayments';
 import {User} from '../model/user';
 import {Router} from '@angular/router';
+import {ViewportScroller} from '@angular/common';
 
 @Component({
   selector: 'app-cart',
@@ -27,7 +28,8 @@ export class CartComponent implements OnInit {
               private tokenStorageService: TokenStorageService,
               private userService: UserService,
               private shareService: ShareService,
-              private router: Router) {
+              private router: Router,
+              private viewportScroller: ViewportScroller) {
 
   }
 
@@ -109,13 +111,20 @@ export class CartComponent implements OnInit {
           icon: 'success',
           confirmButtonText: 'OK'
         });
+
         this.productService.setCart(this.userId).subscribe(() => {
+          this.productService.saveHistory(this.userId, this.total).subscribe(() => {
+          });
           this.productService.getAllCartDetail(this.userId).subscribe(data => {
             this.cartDetailDto = data;
           });
           this.shareService.sendClickEvent();
         });
-        this.router.navigateByUrl('/nan');
+        for (const item of this.cartDetailDto) {
+          this.productService.setAmount(item.amountt - item.amount, item.productId).subscribe(() => {
+          });
+        }
+        this.router.navigateByUrl('/');
       }
     });
   }
@@ -140,5 +149,10 @@ export class CartComponent implements OnInit {
         }
       }
     });
+  }
+
+  scroll() {
+    this.router.navigateByUrl('');
+    this.viewportScroller.scrollToPosition([1000, 1000]);
   }
 }

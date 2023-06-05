@@ -29,10 +29,12 @@ export class MainComponent implements OnInit {
               private shareService: ShareService,
               private tokenStorageService: TokenStorageService,
               private router: Router,
-              private userService: UserService) {
+              private userService: UserService,
+              private viewportScroller: ViewportScroller) {
   }
 
   ngOnInit(): void {
+    this.viewportScroller.scrollToPosition([1000, 1000]);
     this.getUser();
     this.findAllBrand();
     this.findAllProduct();
@@ -80,6 +82,9 @@ export class MainComponent implements OnInit {
           text: 'Thêm sản phẩm vào giỏ hàng thành công',
           icon: 'success',
           confirmButtonText: 'OK'
+        });
+        this.productService.getAllCartDetail(this.userId).subscribe(data => {
+          this.shareService.setCount(data.length);
         });
       }, e => {
         if (e.status === 404) {

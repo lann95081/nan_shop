@@ -57,14 +57,14 @@ export class ProductService {
   }
 
   setAmount(amount: number, productId: number): Observable<any> {
-    return this.httpClient.get<any>('http://localhost:8080/api/cart/setCart/setAmount/' + amount + '/' + productId);
+    return this.httpClient.get<any>('http://localhost:8080/api/cart/setAmount/' + amount + '/' + productId);
   }
 
   findAllHistory(userId: number): Observable<PurchaseHistory[]> {
-    return this.httpClient.get<PurchaseHistory[]>('http://localhost:8080/history/' + userId);
+    return this.httpClient.get<PurchaseHistory[]>('http://localhost:8080/api/cart/history/' + userId);
   }
 
   saveHistory(userId: number, total: number): Observable<any> {
-    return this.httpClient.get('http://localhost:8080/save/' + userId + '/' + total);
+    return this.httpClient.get('http://localhost:8080/api/cart/save/' + userId + '/' + total);
   }
 }

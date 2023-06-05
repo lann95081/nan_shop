@@ -9,5 +9,5 @@ import java.util.List;
 
 public interface IPurchaseRepository extends JpaRepository<PurchaseHistory, Integer> {
     @Query(value = "select * from purchase_history p where p.user_user_id = :userId order by p.purchase_history_id desc", nativeQuery = true)
-    List<PurchaseHistory> findAllByUserId(@Param("userId") Integer userId);
+    List<PurchaseHistory> findAllnByUserId(@Param("userId") Integer userId);
 }

@@ -28,7 +28,6 @@ const routes: Routes = [
     component: ProductDetailComponent
   },
   {
-    canActivate: [UserGuard],
     path: 'history',
     component: HistoryComponent
   }

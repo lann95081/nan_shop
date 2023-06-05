@@ -15,7 +15,7 @@ public class PurchaseService implements IPurchaseService {
 
     @Override
     public List<PurchaseHistory> findAllByUserId(Integer userId) {
-        return iPurchaseRepository.findAllByUserId(userId);
+        return iPurchaseRepository.findAllnByUserId(userId);
     }
 
     @Override

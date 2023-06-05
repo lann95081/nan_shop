@@ -4,8 +4,9 @@
   </div>
 
   <div class="row mx-4">
-    <div class="col-lg-8">
 
+    <div class="col-lg-8">
+      <a class="btn btn-outline-primary" (click)="scroll()">Tiếp tục mua hàng</a>
       <div class="row" *ngIf="cartDetailDto?.length > 0; else elseBlock">
         <div class="row my-3 py-3" style="background: #eeeeee; text-align: center">
           <div class="col-lg-2">
