@@ -22,7 +22,6 @@ export class HistoryComponent implements OnInit {
     this.username = this.tokenStorageService.getUser().username;
     this.userService.findUserEmail(this.username).subscribe(next => {
       this.productService.findAllHistory(next.userId).subscribe(data => {
-        console.log('nan khung');
         this.purchaseHistories = data;
       });
     });

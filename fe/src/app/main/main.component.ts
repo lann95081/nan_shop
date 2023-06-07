@@ -74,6 +74,7 @@ export class MainComponent implements OnInit {
         icon: 'error',
         confirmButtonText: 'OK'
       });
+      this.router.navigateByUrl('/login');
     } else {
       this.productId = productId;
       this.productService.addToCart(this.userId, this.productId, 1).subscribe(() => {
